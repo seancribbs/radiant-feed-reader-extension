@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe FeedReaderPage do
+describe "FeedReaderTags" do
   dataset :home_page
 
   before :each do
     @feed = Feedzirra::Feed.parse(File.read(File.dirname(__FILE__) + "/../fixtures/seancribbs.xml"))
     FeedCache.stub!(:get).and_return(@feed)
-    @page = FeedReaderPage.create(:title => "Feeds", :slug => "feeds", :breadcrumb => "Feeds", :parent_id => page_id(:home))
+    @page = pages(:home)
   end
 
   describe "<r:feed>" do

@@ -1,6 +1,7 @@
 require 'feedzirra'
 
-class FeedReaderPage < Page
+module FeedReaderTags
+  include Radiant::Taggable
 
   desc %{
     The root of the feed namespace.  Can take the 'url' attribute
