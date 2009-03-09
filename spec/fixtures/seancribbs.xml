@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+
+  <title type="text">Sean Cribbs</title>
+
+  <link rel="self" href="http://seancribbs.com/atom.xml/" />
+  <link rel="alternate" type="text/html" href="http://seancribbs.com/" />
+
+  <id>http://seancribbs.com/</id>
+
+  <generator uri="http://radiantcms.org/" 
+    version="0.7.0">Radiant CMS</generator>
+
+  <author>
+    <name>Sean Cribbs</name>
+    <uri>http://seancribbs.com/</uri>
+  </author>
+
+  
+    <updated>2009-02-26T02:30:46Z</updated>
+
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2009-02-26T02:30:46Z</published>
+      <updated>2009-02-26T02:30:46Z</updated>
+      <title>Nominate your Ruby Hero!</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2009/02/26/nominate-your-ruby-hero/" />
+      <id>http://seancribbs.com/tech/2009/02/26/nominate-your-ruby-hero/</id>
+      <content type="html">&lt;p&gt;Is there someone who has made your Ruby experience great?  Someone who doesn&amp;#8217;t get the recognition they deserve?  The Rails Envy guys are doing the Ruby Hero awards again, so go nominate someone!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.RubyHeroes.com&quot; title=&quot;Ruby Heroes&quot;&gt;&lt;img alt=&quot;Ruby Heroes&quot; src=&quot;http://rubyheroes.morphexchange.com/images/rubyhero_button_small.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2009-02-15T22:52:24Z</published>
+      <updated>2009-02-15T22:52:24Z</updated>
+      <title>Iteration in herml</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2009/02/15/iteration-in-herml/" />
+      <id>http://seancribbs.com/tech/2009/02/15/iteration-in-herml/</id>
+      <content type="html">&lt;p&gt;&lt;a href=&quot;http://github.com/kevsmith/herml&quot;&gt;herml&lt;/a&gt; is a Haml-like template language for Erlang that I&amp;#8217;ve been developing with &lt;a href=&quot;http://weblog.hypotheticalabs.com&quot;&gt;Kevin Smith&lt;/a&gt;.  One of the major hurdles we&amp;#8217;ve had to tackle is iteration, which is a pretty common idiom in template languages, but not so much in Erlang.  In Erlang, one normally uses a tail-recursive function, &lt;code&gt;lists:foreach()&lt;/code&gt;, or a list comprehension to iterate over a collection (list). Initially, Kevin had planned something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;haml&quot;&gt;[%tr
+  %td
+    @User || User &lt;- @Users]&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, that proved to be too difficult to parse:&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;The opening bracket breaks with the style previously set forward.&lt;/li&gt;
+	&lt;li&gt;The comprehension piece comes at the end, making it hard to know ahead of time what is being iterated over&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Instead, on Thursday (erloungeRDU hack night), we agreed to do this simpler, but still LC-like syntax:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;haml&quot;&gt;- [@User] &lt;- @Users
+  %td
+    @User&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This proved to be much easier to parse and implement.  We even have structured decomposition, like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;haml&quot;&gt;- [{@Id, @Login}] &lt;- @Users
+  %td
+    @Id
+  %td
+    @Login&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And match ignores with &lt;code&gt;_&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;haml&quot;&gt;- [{_, @Login}] &lt;- @Users
+  %td
+    @Login&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;There&amp;#8217;s still a lot to do, but it&amp;#8217;s shaping up nicely.  Check it out!&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2009-01-30T23:27:05Z</published>
+      <updated>2009-01-30T23:27:05Z</updated>
+      <title>RedCloth 4 vs. CodeHighlighter</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2009/01/30/redcloth-4-vs-codehighlighter/" />
+      <id>http://seancribbs.com/tech/2009/01/30/redcloth-4-vs-codehighlighter/</id>
+      <content type="html">&lt;p&gt;If you&amp;#8217;re using RedCloth 4 with a Radiant site like I am (0.7 will support the gem version), beware that it may parse &lt;code&gt;&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;&lt;/code&gt; blocks incorrectly.  Witness below &amp;#8211; the key is wrapping those in &lt;code&gt;&amp;lt;notextile&amp;gt;&lt;/code&gt; blocks.&lt;/p&gt;
+&lt;h4&gt;Correct&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt; :code.to_s &lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;Incorrect&lt;/h4&gt;
+&lt;pre&gt;&amp;lt;code class=&quot;ruby&quot;&amp;gt; :code.to_s &lt;/code&gt;&lt;/pre&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2009-01-28T15:26:36Z</published>
+      <updated>2009-01-28T15:26:36Z</updated>
+      <title>Content Management That Won't Rot Your Brain</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2009/01/28/content-management-that-wont-rot-your-brain/" />
+      <id>http://seancribbs.com/tech/2009/01/28/content-management-that-wont-rot-your-brain/</id>
+      <content type="html">&lt;p&gt;I gave a presentation to the Raleigh.rb group last night called &amp;#8220;Content Management That Won&amp;#8217;t Rot Your Brain&amp;#8221;.  Of course, it&amp;#8217;s about Radiant, and how to customize it using extensions.  Although my presentation was short, we had a lengthy question session and then some further in-person questions after that.  A big thanks to everyone who came despite it being rescheduled!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span class=&quot;caps&quot;&gt;UPDATE&lt;/span&gt;&lt;/strong&gt;: Slideshare available!&lt;/p&gt;
+&lt;div style=&quot;width:425px;text-align:left&quot; id=&quot;__ss_967166&quot;&gt;&lt;a style=&quot;font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;&quot; href=&quot;http://www.slideshare.net/seancribbs/content-management-that-wont-rot-your-brain-presentation?type=presentation&quot; title=&quot;Content Management That Won&amp;#39;t Rot Your Brain&quot;&gt;Content Management That Won&amp;#39;t Rot Your Brain&lt;/a&gt;&lt;object style=&quot;margin:0px&quot; width=&quot;425&quot; height=&quot;355&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://static.slideshare.net/swf/ssplayer2.swf?doc=raleighrbjanuary2009-1233254190954631-3&amp;stripped_title=content-management-that-wont-rot-your-brain-presentation&quot; /&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;/&gt;&lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;/&gt;&lt;embed src=&quot;http://static.slideshare.net/swf/ssplayer2.swf?doc=raleighrbjanuary2009-1233254190954631-3&amp;stripped_title=content-management-that-wont-rot-your-brain-presentation&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;425&quot; height=&quot;355&quot;&gt;&lt;/embed&gt;&lt;/object&gt;&lt;div style=&quot;font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;&quot;&gt;View more &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://www.slideshare.net/&quot;&gt;presentations&lt;/a&gt; or &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://www.slideshare.net/upload?type=presentation&quot;&gt;upload&lt;/a&gt; your own. (tags: &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://slideshare.net/tag/content&quot;&gt;content&lt;/a&gt; &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://slideshare.net/tag/management&quot;&gt;management&lt;/a&gt;)&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;/raleighrb-january-2009.pdf&quot;&gt;Here are the slides.&lt;/a&gt; (&lt;span class=&quot;caps&quot;&gt;PDF&lt;/span&gt; 19MB) &lt;b&gt;Please don&amp;#8217;t use unless slideshare is too small for you.&lt;/b&gt;&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2009-01-15T14:56:00Z</published>
+      <updated>2009-01-15T14:56:00Z</updated>
+      <title>Getting into Erlang, Playing Telephone</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2009/01/15/getting-into-erlang-playing-telephone/" />
+      <id>http://seancribbs.com/tech/2009/01/15/getting-into-erlang-playing-telephone/</id>
+      <content type="html">&lt;p&gt;Over the last couple of months, while I haven&amp;#8217;t been writing on this blog, I&amp;#8217;ve been getting more acquainted with Erlang.  In the process, I wrote a &lt;a href=&quot;http://github.com/seancribbs/twitterl&quot;&gt;twitter &lt;span class=&quot;caps&quot;&gt;API&lt;/span&gt; library&lt;/a&gt;, a &lt;a href=&quot;http://ccc.seancribbs.com&quot;&gt;webapp&lt;/a&gt; that consumes the Twitter &lt;span class=&quot;caps&quot;&gt;API&lt;/span&gt;, and became good friends with &lt;a href=&quot;http://hypotheticalabs.com&quot;&gt;Kevin Smith&lt;/a&gt;, host of the Pragmatic Programmers &amp;#8220;Erlang in Practice&amp;#8221; screencast series, and the Erlang guru behind &lt;a href=&quot;http://engineyard.com/vertebra&quot;&gt;vertebra&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Kevin hosts the local &lt;span class=&quot;caps&quot;&gt;RDU&lt;/span&gt;-CH Erlang meetup but was at the Codemash conference last week, so we decided to do a group coding session while he was gone.  Since Erlang was originally designed for telephone switches, we thought it would be fun to play a game of &amp;#8220;telephone&amp;#8221; in Erlang.&lt;/p&gt;
+&lt;p&gt;The first step was to make sure everyone had Erlang properly installed and could start it up.  In order send messages across the network, however, two steps are needed.  First, you have to decide on a &amp;#8220;cookie&amp;#8221; (a secret token, really) and a name for your node, and startup the erlang shell like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;$ erl -name sean -setcookie phone&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once the shell is started, you need to connect to a peer node who will be in the ring, and you do that with &lt;code&gt;net_adm:ping(Nodename)&lt;/code&gt;.  For example, if I wanted to connect to Mark, I would do:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;1&gt; net_adm:ping('mark@cyclops-2.local').&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you can connect, it should return &lt;code&gt;pong&lt;/code&gt;. To check who is in the cluster of nodes, you can call &lt;code&gt;nodes()&lt;/code&gt;.  Once everyone is hooked up, we startup the &lt;a href=&quot;http://gist.github.com/44974&quot;&gt;telephone server&lt;/a&gt;, telling it who to pass incoming messages to, and put its name in the global registry.  Then it&amp;#8217;s just a matter of sending messages around the circle.&lt;/p&gt;
+&lt;p&gt;A few things we discovered in the process:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Token-ring network configurations are not very robust.  Take one node down and the token (in our case, a message), gets stuck in the node previous to the downed node.&lt;/li&gt;
+	&lt;li&gt;You have to be careful when defining default matches (i.e. underscores).  One of our participants was able to easily create an infinite loop in the ring because our &lt;code&gt;check_circle&lt;/code&gt; function didn&amp;#8217;t care if the message tuple had three elements.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&amp;#8217;re planning to continue our telephone game next time with a different network configuration, perhaps a client-server (star) formation.&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2008-12-12T17:38:00Z</published>
+      <updated>2008-12-12T17:38:00Z</updated>
+      <title>Riemann Dances at Raves</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/music/2008/12/12/riemann-dances-at-raves/" />
+      <id>http://seancribbs.com/music/2008/12/12/riemann-dances-at-raves/</id>
+      <content type="html">&lt;p&gt;For a while I&amp;#8217;ve enjoyed watching &lt;a href=&quot;http://gilesbowkett.blogspot.com&amp;#39;s&quot;&gt;Giles Bowkett&lt;/a&gt; progress on Archaeopteryx and his comments on other fusions of music and programming.  &lt;a href=&quot;http://gilesbowkett.blogspot.com/2008/12/driving-korg-hardware-with-elysium.html&quot;&gt;His latest post about Elysium&lt;/a&gt; reminds me distinctly of Neo-Riemannian music theory, &lt;a href=&quot;http://en.wikipedia.org/wiki/Pitch_space&quot;&gt;pitch spaces&lt;/a&gt;, and the &lt;a href=&quot;http://en.wikipedia.org/wiki/Tonnetz&quot;&gt;&lt;em&gt;Tonnetz&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Interestingly, if you remove register considerations and collapse enharmonic pitch classes, the &lt;em&gt;Tonnetz&lt;/em&gt; could be represented in higher dimensions on a sphere.&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2008-09-30T14:27:00Z</published>
+      <updated>2008-09-30T14:27:00Z</updated>
+      <title>Code Highlighting for Erlang</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2008/09/30/code-highlighting-for-erlang/" />
+      <id>http://seancribbs.com/tech/2008/09/30/code-highlighting-for-erlang/</id>
+      <content type="html">&lt;p&gt;Last night, in the expectation that I would start posting things about my journey in learning Erlang, I wrote up a language file for &lt;a href=&quot;http://danwebb.net&quot;&gt;Dan Webb&amp;#8217;s&lt;/a&gt; &lt;a href=&quot;http://svn.danwebb.net/external/CodeHighlighter/&quot;&gt;CodeHighlighter&lt;/a&gt;.  You can get the results from &lt;a href=&quot;http://github.com/seancribbs/codehighlighter-languages&quot;&gt;my github repo&lt;/a&gt;.  Here&amp;#8217;s a sample of the results:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;erlang&quot;&gt;-module(foo).
+-export([bar/1]).
+
+% Pwns joo
+bar(Baz) -&gt;
+  case Baz of
+    pwned -&gt; 
+      io:format(&quot;Eat that!~n&quot;, []);
+    bin -&gt; 
+      &lt;&lt;&quot;Eat that!&quot;&gt;&gt;;
+    _ -&gt; 
+      io:format(&quot;What are you doing?~n&quot;, [])
+  end.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I&amp;#8217;d appreciate any contributions &amp;#8212; just fork and send a pull request!&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2008-09-23T21:57:00Z</published>
+      <updated>2008-09-23T21:57:00Z</updated>
+      <title>Raleigh RubyCamp Logo</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2008/09/23/raleigh-rubycamp-logo/" />
+      <id>http://seancribbs.com/tech/2008/09/23/raleigh-rubycamp-logo/</id>
+      <content type="html">&lt;p&gt;I&amp;#8217;ve been learning a lot lately about using Inkscape to do vector graphics, and it seems it has paid off!  My attempt at a logo for Raleigh RubyCamp was selected for the event.  Here&amp;#8217;s a preview:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/page_attachments/0000/0081/raleigh-rubycamp.png&quot; /&gt;&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2008-07-25T09:48:00Z</published>
+      <updated>2008-07-25T09:48:00Z</updated>
+      <title>Resurrecting feed_tools, part 2</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2008/07/25/resurrecting-feed_tools-part-2/" />
+      <id>http://seancribbs.com/tech/2008/07/25/resurrecting-feed_tools-part-2/</id>
+      <content type="html">&lt;p&gt;(Follow-up on &lt;a href=&quot;/tech/2008/07/23/resurrecting-feed-tools&quot;&gt;part 1&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;One of the great and powerful things about Ruby is its ability to expressively extract common patterns through metaprogramming.  Even the standard library in Ruby provides some good examples.  One of my favorites is the generation of getter/setter methods for instance variables, the &lt;code&gt;attr&lt;/code&gt; methods:&lt;br /&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Person
+  attr_reader :name # adds 'name' method (getter)
+  attr_writer :phone # adds 'phone=' method (setter)
+  attr_accessor :address # adds both 'address' and 'address='
+  attr :gender # same as attr_accessor
+end&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;Using the metaprogramming techniques like this, we&amp;#8217;re going to clean up a few things in &lt;code&gt;feed_tools&lt;/code&gt;.&lt;/p&gt; &lt;h2&gt;Memoization&lt;/h2&gt;
+&lt;p&gt;I don&amp;#8217;t know if I&amp;#8217;d go so far as to call it an anti-pattern, but what FeedTools does in many cases is definitely not &lt;span class=&quot;caps&quot;&gt;DRY&lt;/span&gt;.  Memoization is a pattern where a value is calculated only once and thereafter stored in an instance variable so it can be reused.  Here&amp;#8217;s the basic formula the original library follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def some_value
+  if @some_value.nil?
+    # do some calculation
+    @some_value = value
+  end
+  @some_value
+end&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That&amp;#8217;s an acceptable way to do it, although stylistically I would have done a few things differently (especially using &lt;code&gt;unless @some_value&lt;/code&gt; rather than &lt;code&gt;if...nil?&lt;/code&gt;).  However, the code is littered with these blocks.  It seems every single major attribute of the &lt;code&gt;Feed&lt;/code&gt; class has one.  Let&amp;#8217;s clean that up with some metaprogramming.  First, we&amp;#8217;re going to reduce the method just to its calculation, making sure to return the value we want to store in the ivar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def some_value
+  # do some calculation
+  value
+end&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now that we have distilled the essence of the calculation, let&amp;#8217;s inject some memoization at the class level.  I&amp;#8217;d like to make an attribute-like declaration like so (Incidentally, recent versions of Rails have this already):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;memoize :some_value&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;So, I made a module like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;require 'activesupport' # for alias_method_chain
+module FeedTools
+  module Memoize
+    def memoize(*names)
+      names.each do |name|
+        class_eval %{
+          def #{name}_with_memoize
+            @#{name} ||= #{name}_without_memoize
+          end
+        }
+        alias_method_chain name, :memoize
+      end
+    end
+  end
+end&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then we&amp;#8217;ll &lt;code&gt;extend&lt;/code&gt; the &lt;code&gt;Feed&lt;/code&gt; class with that module:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class FeedTools::Feed
+  extend FeedTools::Memoize
+end&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;How does it work?  Let&amp;#8217;s step through it.  Since we extended the Feed class with the module, &lt;code&gt;memoize&lt;/code&gt; becomes a class/singleton method.  This means we can call it directly in our class definition.  Next, when we pass it any number of symbols or strings, it will iterate through each one, defining a method with class_eval and establishing a pair of aliases.  So for &lt;code&gt;:some_value&lt;/code&gt;, it will create a method that looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def some_value_with_memoize
+  @some_value ||= some_value_without_memoize
+end&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;One thing to note about this method is that I&amp;#8217;ve simplified the &lt;code&gt;if...nil?&lt;/code&gt; into the simpler &amp;#8220;or-equals&amp;#8221; or &amp;#8220;lazy assignment&amp;#8221; operator.  The only disadvantage to this method is if you are trying to memoize something that calculates to false, it will be recalculated everytime you call the method.  Since FeedTools mostly returns strings for things, this is not an issue.&lt;/p&gt;
+&lt;p&gt;The next line after the &lt;code&gt;class_eval&lt;/code&gt; is &lt;code&gt;alias_method_chain&lt;/code&gt;.  This is a little goodie that comes with ActiveSupport, the source of much of the magic behind Rails.  Essentially, it shortens these two lines into one:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;alias_method &quot;#{name}_without_memoize&quot;, name
+alias_method name, &quot;#{name}_with_memoize&quot;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;So our &amp;#8220;with&amp;#8221; method is injected in the place of the original method, but leaving a hook back into the original &amp;#8220;without&amp;#8221; method.  Incidentally, this is one example of why Ruby doesn&amp;#8217;t need the complexities of Java-like Dependency Injection solutions — it&amp;#8217;s a no-brainer!&lt;/p&gt;
+&lt;p&gt;In the next installment, I&amp;#8217;ll discuss more ways to clean up the FeedTools code.&lt;/p&gt;</content>
+    </entry>
+    
+    <entry>
+      <author><name>Sean Cribbs</name></author>
+      <published>2008-07-23T21:50:00Z</published>
+      <updated>2008-07-23T21:50:00Z</updated>
+      <title>Resurrecting feed_tools</title>
+      <link rel="alternate" type="text/html" 
+        href="http://seancribbs.com/tech/2008/07/23/resurrecting-feed_tools/" />
+      <id>http://seancribbs.com/tech/2008/07/23/resurrecting-feed_tools/</id>
+      <content type="html">&lt;p&gt;Last week, a couple of unrelated sites I&amp;#8217;ve worked on converged on the same problem: slow loading of data from &lt;span class=&quot;caps&quot;&gt;RSS&lt;/span&gt; feeds.  In one case, the site at times refused to load a feed at all, then at other times added a whole second to the page load time!  The culprit, of course was &lt;a href=&quot;http://feedtools.rubyforge.org&quot;&gt;&lt;code&gt;feed_tools&lt;/code&gt;&lt;/a&gt;.  While a very versatile and flexible library at parsing even ill-formed feeds, &lt;code&gt;feed_tools&lt;/code&gt; is notorious for poor performance and huge memory usage.  I was inspired by Charlie Savage&amp;#8217;s &lt;a href=&quot;http://cfis.savagexi.com/articles/2008/07/16/resurrecting-libxml-ruby&quot;&gt;resurrection of &lt;code&gt;libxml-ruby&lt;/code&gt;&lt;/a&gt; to do the same for &lt;code&gt;feed_tools&lt;/code&gt;, partly because it&amp;#8217;s an old library (started in 2005) and because it would be an excuse to use the new hotness that is &lt;code&gt;libxml-ruby&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To get a sense of my progression on this, follow my &lt;a href=&quot;http://twitter.com/seancribbs&quot;&gt;Twitter page&lt;/a&gt;.  Here&amp;#8217;s a few:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If FeedTools were to have a mental disorder, it would definitely be paranoid schizophrenia. Let&amp;#8217;s hope I can be an anti-psychotic.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;FeedTools&amp;#8217; largest problem is a lack of &lt;span class=&quot;caps&quot;&gt;DRY&lt;/span&gt; (and poor Ruby style). The real intention of the code is lost in the repetition.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;FeedTools uses ObjectSpace. &lt;span class=&quot;caps&quot;&gt;EPIC&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;FAIL&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt; &lt;h2&gt;Confessions&lt;/h2&gt;
+&lt;p&gt;If we&amp;#8217;re going to give &lt;code&gt;feed_tools&lt;/code&gt; a clean conscience, let&amp;#8217;s first confess its sins.  And &lt;em&gt;believe me&lt;/em&gt;, they are many!&lt;/p&gt;
+&lt;h3&gt;&lt;code&gt;ObjectSpace&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;One of the things that immediately jumped out to me was the use of &lt;code&gt;ObjectSpace&lt;/code&gt;.  Any experienced Rubyist knows that &lt;code&gt;ObjectSpace&lt;/code&gt; is a dangerous thing to play with and should not be used in performance-critical situations.  &lt;code&gt;feed_tools&lt;/code&gt; ignores that precept and uses it to find the parent feed of an individual item, on the premise that it will help with cleaning up dangling objects during garbage collection (which seems wrong to me):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;
+# Returns the parent feed of this feed item
+# Warning, this method may be slow if you have a
+# large number of FeedTools::Feed objects. Can't
+# use a direct reference to the parent because it plays
+# havoc with the garbage collector. Could've used
+# a WeakRef object, but really, if there are multiple
+# parent feeds, something is going to go wrong, and the
+# programmer needs to be notified. A WeakRef
+# implementation can't detect this condition.
+def feed
+  parent_feed = nil
+  ObjectSpace.each_object(FeedTools::Feed) do |feed|
+    if feed.instance_variable_get(&quot;@entries&quot;).nil?
+      feed.items
+    end
+    unsorted_items = feed.instance_variable_get(&quot;@entries&quot;)
+    for item in unsorted_items
+      if item.object_id == self.object_id
+        if parent_feed.nil?
+          parent_feed = feed
+          break
+        else
+          raise &quot;Multiple parent feeds found.&quot;
+        end
+      end
+    end
+  end
+  return parent_feed
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To add insult to injury, the result is not memoized, so every time the &lt;code&gt;FeedItem&lt;/code&gt; object has to access its parent feed, you have to go through the &lt;code&gt;ObjectSpace&lt;/code&gt; loop again!  This is one place where I feel it should not be optimizing for memory over speed when the solution is very simple &amp;#8212; set the parent feed on initialization or when adding to an existing feed.&lt;/p&gt;
+&lt;h3&gt;&lt;code&gt;!object#nil?&lt;/code&gt; vs. &lt;code&gt;object&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;One thing that programmers new to Ruby don&amp;#8217;t often grasp immediately is that &lt;code&gt;nil&lt;/code&gt; and &lt;code&gt;false&lt;/code&gt; are equivalent in conditional expressions and anything else (i.e. an object) is equivalent to &lt;code&gt;true&lt;/code&gt;.  This makes many typical scenarios where one might want to test if a method call returned a value, or returning anyone of several possible values much easier and clearer.  &lt;code&gt;feed_tools&lt;/code&gt; is littered with a paranoia about &lt;code&gt;nil&lt;/code&gt; values.  Here&amp;#8217;s just &lt;a href=&quot;http://github.com/seancribbs/feed-tools/tree/8cf62729eaf74de64eda2c6294dac0671f98ed97/lib/feed_tools/feed_item.rb#L357&quot;&gt;one example&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;
+@content = FeedTools::HtmlHelper.process_text_construct(content_node,
+  self.feed_type, self.feed_version, [self.base_uri])
+if self.feed_type == &quot;atom&quot; ||
+    self.configurations[:always_strip_wrapper_elements]
+  @content = FeedTools::HtmlHelper.strip_wrapper_element(@content)
+end
+if @content.nil?
+  @content = self.media_text
+end
+if @content.nil?
+  @content = self.itunes_summary
+end
+if @content.nil?
+  @content = self.itunes_subtitle
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Those last three &lt;code&gt;if&lt;/code&gt; statements would obviously be more succinctly and clearly said like so (additionally without the &amp;#8216;self&amp;#8217; fetish):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;
+@content ||= media_text || itunes_summary || itunes_subtitle
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Much cleaner! The original code is full of things like this.&lt;/p&gt;
+&lt;h3&gt;Exception paranoia&lt;/h3&gt;
+&lt;p&gt;Just like the obsession with &lt;code&gt;#nil?&lt;/code&gt;, FeedTools is obsessed with &lt;code&gt;rescue&lt;/code&gt; blocks. There is nothing inherently wrong with &lt;code&gt;begin...rescue...end&lt;/code&gt; blocks, however FeedTools seems to use them willy-nilly and without specificity. An &lt;a href=&quot;http://github.com/seancribbs/feed-tools/tree/8cf62729eaf74de64eda2c6294dac0671f98ed97/lib/feed_tools/feed.rb#L114&quot;&gt;example&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;
+begin
+  if cache_object != nil &amp;&amp; cache_object.serialized != nil
+    # If we've got a cache hit, deserialize
+    expired = true
+    if cache_object.time_to_live == nil
+      cache_object.time_to_live =
+        feed_configurations[:default_ttl].to_i
+      cache_object.save
+    end
+    if (cache_object.last_retrieved == nil)
+      expired = true
+    elsif (cache_object.time_to_live &lt; 30.minutes)
+      expired =
+        (cache_object.last_retrieved + 30.minutes) &lt; Time.now.gmtime
+    else
+      expired =
+        (cache_object.last_retrieved + cache_object.time_to_live) &lt;
+          Time.now.gmtime
+    end
+    if !expired
+      require 'yaml'
+      deserialized_feed = YAML.load(cache_object.serialized)
+      deserialized_feed.cache_object = cache_object
+      Thread.pass
+    end
+  end
+rescue Exception
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The problem with the &lt;code&gt;rescue&lt;/code&gt; this code snippet is that it reflects a lackadaisacal attitude toward what exception is thrown and by what statement.&lt;/p&gt;
+&lt;p&gt;This is just a preview of the greater architectural problems that plague FeedTools &amp;#8212; inconsistent interfaces, broken encapsulation, misplaced responsibility, lack of division of labor, reified utility modules, an incredible amount of repetition, and a general ignorance of Ruby style and convention.  If I went into all the details, this would be a much longer article than I want.  So let&amp;#8217;s pull out our Jump to Conclusions Mat and take a leap.&lt;/p&gt;
+&lt;h2&gt;Going forward&lt;/h2&gt;
+&lt;p&gt;As you may have found from the links above, I&amp;#8217;ve created a &lt;a href=&quot;http://github.com/seancribbs/feed-tools&quot;&gt;github project&lt;/a&gt; for my refactoring of the library.  You&amp;#8217;ll want to pay attention to the &amp;#8216;libxml&amp;#8217; branch where I&amp;#8217;m doing most of the work.  Here are my goals:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Decouple the &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt;-parsing framework from the feed-parsing, abstracting out the differences between &lt;code&gt;libxml-ruby&lt;/code&gt;, Hpricot, and &lt;span class=&quot;caps&quot;&gt;REXML&lt;/span&gt;.&lt;/li&gt;
+	&lt;li&gt;Use meta-programming and good Ruby style to simplify and clarify the code.&lt;/li&gt;
+	&lt;li&gt;Separate responsibilities into appropriate modules and classes.&lt;/li&gt;
+	&lt;li&gt;Maintain a substantial amount of backwards-compatibility with FeedTools 0.2.x, with the exception of the internal &lt;span class=&quot;caps&quot;&gt;API&lt;/span&gt;.&lt;/li&gt;
+	&lt;li&gt;Maintain the ability to recognize and parse any feeds that FeedTools currently recognizes, using the existing test suite.&lt;/li&gt;
+	&lt;li&gt;Improve the test suite by adding more focused tests on individual components.&lt;/li&gt;
+	&lt;li&gt;Improve performance and reduce memory consumption using real numbers from &lt;code&gt;ruby-prof&lt;/code&gt; and other appropriate tools.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Obviously the first three goals are the most significant on my list.  I&amp;#8217;d appreciate any feedback you can give me, either on the github project or via email.&lt;/p&gt;</content>
+    </entry>
+    
+
+  
+</feed>
