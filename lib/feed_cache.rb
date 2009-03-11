@@ -15,7 +15,7 @@ class FeedCache
       feed
     else
       feed = Feedzirra::Feed.fetch_and_parse(url)
-      save_to_cache(url, feed)
+      save_to_cache(url, feed) unless feed.is_a?(Fixnum)
       feed
     end
   end

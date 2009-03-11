@@ -33,4 +33,5 @@ describe FeedCache do
     @old = @cache.get('http://seancribbs.com/atom.xml')
     @old.etag.should == @cache.get('http://seancribbs.com/atom.xml').etag
   end
+  
 end

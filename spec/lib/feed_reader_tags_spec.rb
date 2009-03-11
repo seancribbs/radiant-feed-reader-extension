@@ -18,6 +18,11 @@ describe "FeedReaderTags" do
       FeedCache.should_receive(:get).with('http://seancribbs.com/atom.xml').and_return(@feed)
       @page.should render('<r:feed url="http://seancribbs.com/atom.xml">foo</r:feed>').as('foo')
     end
+    
+    it "should not render if url generates an error" do
+      FeedCache.should_receive(:get).with('dne').and_return(0)
+      @page.should render('<r:feed url="dne">foo</r:feed>').as('')
+    end
   end
   
   describe "<r:feed:entries>" do
@@ -38,6 +43,11 @@ describe "FeedReaderTags" do
     it "should load the entries from the feed of a higher context" do
       @feed.should_receive(:entries).and_return([])
       @page.should render('<r:feed url="http://seancribbs.com/atom.xml"><r:entries>foo</r:entries></r:feed>').as('foo')
+    end
+    
+    it "should not render if the url generates an error" do
+      FeedCache.should_receive(:get).with('dne').and_return(0)
+      @page.should render('<r:feed:entries url="dne">foo</r:feed:entries>').as('')
     end
   end
 
@@ -68,6 +78,11 @@ describe "FeedReaderTags" do
       @page.should render('<r:feed:entries:each url="http://seancribbs.com/atom.xml" by="published"><r:title /> </r:feed:entries:each>').as(%q[Resurrecting feed_tools Resurrecting feed_tools, part 2 Raleigh RubyCamp Logo Code Highlighting for Erlang Riemann Dances at Raves Getting into Erlang, Playing Telephone Content Management That Won't Rot Your Brain RedCloth 4 vs. CodeHighlighter Iteration in herml Nominate your Ruby Hero! ])
       @page.should render('<r:feed:entries:each url="http://seancribbs.com/atom.xml" by="title"><r:title /> </r:feed:entries:each>').as("Code Highlighting for Erlang Content Management That Won't Rot Your Brain Getting into Erlang, Playing Telephone Iteration in herml Nominate your Ruby Hero! Raleigh RubyCamp Logo RedCloth 4 vs. CodeHighlighter Resurrecting feed_tools Resurrecting feed_tools, part 2 Riemann Dances at Raves ")
       @page.should render('<r:feed:entries:each url="http://seancribbs.com/atom.xml" by="title" order="desc"><r:title /> </r:feed:entries:each>').as("Riemann Dances at Raves Resurrecting feed_tools, part 2 Resurrecting feed_tools RedCloth 4 vs. CodeHighlighter Raleigh RubyCamp Logo Nominate your Ruby Hero! Iteration in herml Getting into Erlang, Playing Telephone Content Management That Won't Rot Your Brain Code Highlighting for Erlang ")
+    end
+    
+    it "should not render if the url generates an error" do
+      FeedCache.should_receive(:get).with('dne').and_return(0)
+      @page.should render('<r:feed:entries:each url="dne">foo</r:feed:entries:each>').as('')
     end
   end
   

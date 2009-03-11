@@ -5,11 +5,13 @@ module FeedReaderTags
 
   desc %{
     The root of the feed namespace.  Can take the 'url' attribute
-    to scope all contained tags to a specific newsfeed.
+    to scope all contained tags to a specific newsfeed. 
+    
+    If a url is given and 
   }
   tag "feed" do |tag|
     tag.locals.feed = FeedCache.get(tag.attr['url']) if tag.attr['url']
-    tag.expand
+    tag.expand unless tag.locals.feed.is_a?(Fixnum)
   end
 
   desc %{
@@ -19,8 +21,8 @@ module FeedReaderTags
   }
   tag "feed:entries" do |tag|
     tag.locals.feed = FeedCache.get(tag.attr['url']) if tag.attr['url']
-    tag.locals.entries = tag.locals.feed.entries if tag.locals.feed
-    tag.expand
+    tag.locals.entries = tag.locals.feed.entries if tag.locals.feed.is_a?(Feedzirra::FeedUtilities)
+    tag.expand unless tag.locals.feed.is_a?(Fixnum)
   end
 
 
@@ -39,7 +41,8 @@ module FeedReaderTags
   tag "feed:entries:each" do |tag|
     raise StandardTags::TagError, "`url' attribute is required" unless tag.attr['url'] || tag.locals.feed
     tag.locals.feed = FeedCache.get(tag.attr['url']) if tag.attr['url']
-    entries = (tag.locals.entries ||= tag.locals.feed.entries)
+    tag.locals.entries ||= tag.locals.feed.entries if tag.locals.feed.is_a?(Feedzirra::FeedUtilities)
+    entries = (tag.locals.entries ||= [])
     entries_with_options(entries, tag).map do |entry|
       tag.locals.entry = entry
       tag.expand
