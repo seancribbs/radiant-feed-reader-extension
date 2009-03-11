@@ -6,8 +6,6 @@ module FeedReaderTags
   desc %{
     The root of the feed namespace.  Can take the 'url' attribute
     to scope all contained tags to a specific newsfeed. 
-    
-    If a url is given and 
   }
   tag "feed" do |tag|
     tag.locals.feed = FeedCache.get(tag.attr['url']) if tag.attr['url']
