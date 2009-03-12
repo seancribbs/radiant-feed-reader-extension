@@ -24,9 +24,23 @@ describe FeedCache do
   end
   
   it "should save the feed to disk when fetching" do
-    FileUtils.rm_f(File.join(@cache.cache_dir, '*'))
+    FileUtils.rm_rf(@cache.cache_dir)
     @cache.get('http://seancribbs.com/atom.xml')
     Dir[File.join(@cache.cache_dir, '*')].should_not be_empty
+  end
+  
+  it "should not save the feed to disk if there is an error in fetching" do
+    FileUtils.rm_rf(@cache.cache_dir)
+    @cache.get('dne')
+    Dir[File.join(@cache.cache_dir, '*')].should be_empty
+  end
+  
+  it "should not save the updated feed to disk if there is an error in fetching" do
+    FileUtils.rm_rf(@cache.cache_dir)
+    @oldfeed = @cache.get('http://seancribbs.com/atom.xml')
+    Feedzirra::Feed.stub!(:update).and_return(0)
+    @cache.get('http://seancribbs.com/atom.xml')
+    @cache.send(:load_from_cache, 'http://seancribbs.com/atom.xml').etag.should == @oldfeed.etag
   end
   
   it "should return the cached feed" do
