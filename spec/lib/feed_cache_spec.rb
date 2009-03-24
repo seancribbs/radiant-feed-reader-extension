@@ -31,7 +31,7 @@ describe FeedCache do
   
   it "should not save the feed to disk if there is an error in fetching" do
     FileUtils.rm_rf(@cache.cache_dir)
-    @cache.get('dne')
+    @cache.get('http://seancribbs.com/this-does-not-exist')
     Dir[File.join(@cache.cache_dir, '*')].should be_empty
   end
   
@@ -48,4 +48,12 @@ describe FeedCache do
     @old.etag.should == @cache.get('http://seancribbs.com/atom.xml').etag
   end
   
+  it "should clean duplicates from the feed after updating" do
+    old_feed = @cache.get('http://seancribbs.com/atom.xml')
+    extra_entry = old_feed.entries.first.dup
+    old_feed.entries.push extra_entry
+    @cache.should_receive(:load_from_cache).with('http://seancribbs.com/atom.xml').and_return(old_feed)
+    new_feed = @cache.get('http://seancribbs.com/atom.xml')
+    new_feed.entries.should_not include(extra_entry)
+  end
 end

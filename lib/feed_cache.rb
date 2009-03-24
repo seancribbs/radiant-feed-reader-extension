@@ -11,11 +11,12 @@ class FeedCache
     if cache_exists?(url)
       feed = load_from_cache(url)
       feed = Feedzirra::Feed.update(feed)
-      save_to_cache(url, feed) unless feed.is_a?(Fixnum)
+      clean_duplicates(feed)
+      save_to_cache(url, feed)
       feed
     else
       feed = Feedzirra::Feed.fetch_and_parse(url)
-      save_to_cache(url, feed) unless feed.is_a?(Fixnum)
+      save_to_cache(url, feed)
       feed
     end
   end
@@ -33,12 +34,27 @@ class FeedCache
       Digest::SHA1.hexdigest(url)
     end
     
+    def clean_duplicates(feed)
+      unless feed.is_a?(Fixnum)
+        new_entries = feed.entries.inject([]) do |collection, entry|
+          if collection.any? {|e| e.url == entry.url }
+            collection
+          else
+            collection << entry
+          end
+        end
+        feed.entries.replace new_entries
+      end
+    end
+    
     def load_from_cache(url)
       Marshal.load(File.read(cache_file(url)))
     end
     
     def save_to_cache(url, object)
-      File.open(cache_file(url), "w") {|f| f.write Marshal.dump(object) }
+      unless object.is_a?(Fixnum)
+        File.open(cache_file(url), "w") {|f| f.write Marshal.dump(object) }
+      end
     end
     
     def initialize
